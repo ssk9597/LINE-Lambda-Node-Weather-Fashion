@@ -1,6 +1,9 @@
 // パッケージのインストール
 import { ClientConfig, Client, WebhookEvent } from '@line/bot-sdk';
 
+// モジュールを読み込む
+import { SendButtonMessageOrErrorMessage } from './Common/SendMessage/ButtonOrErrorMessage';
+
 // アクセストークンとチャンネルシークレットをenvから読み込む
 const clientConfig: ClientConfig = {
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || '',
@@ -20,6 +23,7 @@ exports.handler = async (event: any, context: any) => {
     async (event: WebhookEvent): Promise<void> => {
       try {
         console.log('event: ' + JSON.stringify(event));
+        await SendButtonMessageOrErrorMessage(client, event);
       } catch (err) {
         console.log(err);
       }

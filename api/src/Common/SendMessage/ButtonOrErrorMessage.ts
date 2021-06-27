@@ -3,6 +3,7 @@ import { Client, WebhookEvent } from '@line/bot-sdk';
 
 // モジュールを読み込む
 import { ButtonMessageTemplate } from '../MessageTemplate/ButtonMessageTemplate';
+import { ErrorMessageTemplate } from '../MessageTemplate/ErrorMessageTemplate';
 
 export const SendButtonMessageOrErrorMessage = async (
   client: Client,
@@ -19,7 +20,7 @@ export const SendButtonMessageOrErrorMessage = async (
     if (text === '今日の洋服は？') {
       await client.replyMessage(replyToken, ButtonMessageTemplate());
     } else {
-      // エラーメッセージを送る
+      await client.replyMessage(replyToken, ErrorMessageTemplate());
     }
   } catch (err) {
     console.log(err);
