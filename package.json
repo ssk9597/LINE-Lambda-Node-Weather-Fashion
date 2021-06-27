@@ -1,0 +1,20 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "LINE Messaging API + Node.js + TypeScript + Lambda で作った天気予報＆ファッションレコメンドアプリです",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssk9597/LINE-Lambda-Node-Weather-Fashion.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ssk9597/LINE-Lambda-Node-Weather-Fashion/issues"
+  },
+  "homepage": "https://github.com/ssk9597/LINE-Lambda-Node-Weather-Fashion#readme"
+}
