@@ -4,7 +4,9 @@
   "description": "LINE Messaging API + Node.js + TypeScript + Lambda で作った天気予報＆ファッションレコメンドアプリです",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist",
+    "tsc": "tsc",
+    "build": "npm-run-all clean tsc"
   },
   "repository": {
     "type": "git",
