@@ -2,8 +2,8 @@
 import { Client, WebhookEvent } from '@line/bot-sdk';
 
 // モジュールを読み込む
-import { ButtonMessageTemplate } from '../MessageTemplate/ButtonMessageTemplate';
-import { ErrorMessageTemplate } from '../MessageTemplate/ErrorMessageTemplate';
+import { ButtonMessageTemplate } from '../Template/ButtonMessageTemplate';
+import { ErrorMessageTemplate } from '../Template/ErrorMessageTemplate';
 
 export const SendButtonMessageOrErrorMessage = async (
   client: Client,

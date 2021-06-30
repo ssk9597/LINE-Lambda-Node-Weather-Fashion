@@ -1,8 +1,6 @@
 // パッケージのインストール
 import { ClientConfig, Client, WebhookEvent } from '@line/bot-sdk';
-
-// モジュールを読み込む
-import { SendButtonMessageOrErrorMessage } from './Common/SendMessage/ButtonOrErrorMessage';
+import AWS from 'aws-sdk';
 
 // アクセストークンとチャンネルシークレットをenvから読み込む
 const clientConfig: ClientConfig = {
@@ -12,6 +10,7 @@ const clientConfig: ClientConfig = {
 
 // インスタンス化
 const client: Client = new Client(clientConfig);
+const lambda = new AWS.Lambda();
 
 // 実行
 exports.handler = async (event: any, context: any) => {
@@ -23,7 +22,17 @@ exports.handler = async (event: any, context: any) => {
     async (event: WebhookEvent): Promise<void> => {
       try {
         console.log('event: ' + JSON.stringify(event));
-        await SendButtonMessageOrErrorMessage(client, event);
+        const params = {
+          FunctionName: 'button-error-message',
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify({
+            client: client,
+            event: event,
+          }),
+        };
+        const result = await lambda.invoke(params).promise();
+        console.log('result: ' + JSON.stringify(result));
+        console.log('result: ' + result);
       } catch (err) {
         console.log(err);
       }
