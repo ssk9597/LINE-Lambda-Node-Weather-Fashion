@@ -21,11 +21,15 @@ exports.handler = async (events: any, context: any, callback: any) => {
     if (text === '今日の洋服は？') {
       const buttonMessageTemplate = await ButtonMessageTemplate();
       console.log('buttonMessageTemplate: ' + JSON.stringify(buttonMessageTemplate));
-      await client.replyMessage(replyToken, buttonMessageTemplate);
+      // 追加
+      callback(null, client.replyMessage(replyToken, buttonMessageTemplate));
+      // await client.replyMessage(replyToken, buttonMessageTemplate);
     } else {
       const errorMessageTemplate = await ErrorMessageTemplate();
       console.log('errorMessageTemplate: ' + JSON.stringify(errorMessageTemplate));
-      await client.replyMessage(replyToken, errorMessageTemplate);
+      // 追加
+      callback(null, client.replyMessage(replyToken, errorMessageTemplate));
+      // await client.replyMessage(replyToken, errorMessageTemplate);
     }
   } catch (err) {
     console.log(err);
