@@ -5,10 +5,11 @@ import { Client, WebhookEvent } from '@line/bot-sdk';
 import { ButtonMessageTemplate } from '../Template/ButtonMessageTemplate';
 import { ErrorMessageTemplate } from '../Template/ErrorMessageTemplate';
 
-export const SendButtonMessageOrErrorMessage = async (
-  client: Client,
-  event: WebhookEvent
-): Promise<void> => {
+exports.handler = async (events: any, context: any, callback: any) => {
+  // Payload
+  const client: Client = events.client;
+  const event: WebhookEvent = events.event;
+
   try {
     if (event.type !== 'message' || event.message.type !== 'text') {
       return;
