@@ -24,17 +24,14 @@ exports.handler = async (event: any, context: any) => {
         console.log('event: ' + JSON.stringify(event));
         const params = {
           FunctionName: 'button-error-message',
-          // InvocationType: 'RequestResponse',
-          // Payload: JSON.stringify({
-          //   client: client,
-          //   event: event,
-          // }),
-          InvokeArgs: JSON.stringify({
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify({
             client: client,
             event: event,
           }),
         };
-        const result = await lambda.invokeAsync(params, (err, data) => {
+        console.log(params);
+        const result = await lambda.invoke(params, (err, data) => {
           if (err) {
             console.log(err);
           } else {

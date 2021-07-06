@@ -5,7 +5,7 @@ import { Client, WebhookEvent } from '@line/bot-sdk';
 import { ButtonMessageTemplate } from '../Template/ButtonMessageTemplate';
 import { ErrorMessageTemplate } from '../Template/ErrorMessageTemplate';
 
-exports.handler = async (events: any, context: any, callback: any) => {
+exports.handler = async (events: any, context: any) => {
   // Payload
   const client: Client = events.client;
   const event: WebhookEvent = events.event;
@@ -21,15 +21,11 @@ exports.handler = async (events: any, context: any, callback: any) => {
     if (text === '今日の洋服は？') {
       const buttonMessageTemplate = await ButtonMessageTemplate();
       console.log('buttonMessageTemplate: ' + JSON.stringify(buttonMessageTemplate));
-      // 追加
-      callback(null, client.replyMessage(replyToken, buttonMessageTemplate));
-      // await client.replyMessage(replyToken, buttonMessageTemplate);
+      await client.replyMessage(replyToken, buttonMessageTemplate);
     } else {
       const errorMessageTemplate = await ErrorMessageTemplate();
       console.log('errorMessageTemplate: ' + JSON.stringify(errorMessageTemplate));
-      // 追加
-      callback(null, client.replyMessage(replyToken, errorMessageTemplate));
-      // await client.replyMessage(replyToken, errorMessageTemplate);
+      await client.replyMessage(replyToken, errorMessageTemplate);
     }
   } catch (err) {
     console.log(err);
