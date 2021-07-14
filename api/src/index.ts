@@ -3,8 +3,8 @@ import { ClientConfig, Client, WebhookEvent } from '@line/bot-sdk';
 import AWS from 'aws-sdk';
 
 // モジュールを読み込む
-import { ButtonMessageTemplate } from './Common/Template/ButtonMessageTemplate';
-import { ErrorMessageTemplate } from './Common/Template/ErrorMessageTemplate';
+import { ButtonMessageTemplate } from './Common/ButtonMessage/ButtonMessageTemplate';
+import { ErrorMessageTemplate } from './Common/ButtonMessage/ErrorMessageTemplate';
 
 // アクセストークンとチャンネルシークレットをenvから読み込む
 const clientConfig: ClientConfig = {
