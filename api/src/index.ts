@@ -1,10 +1,10 @@
 // パッケージのインストール
 import { ClientConfig, Client, WebhookEvent } from '@line/bot-sdk';
-import AWS from 'aws-sdk';
 
 // モジュールを読み込む
-import { ButtonMessageTemplate } from './Common/ButtonMessage/ButtonMessageTemplate';
-import { ErrorMessageTemplate } from './Common/ButtonMessage/ErrorMessageTemplate';
+import { buttonMessageTemplate } from './Common/ButtonMessage/ButtonMessageTemplate';
+import { errorMessageTemplate } from './Common/ButtonMessage/ErrorMessageTemplate';
+import { flexMessageTemplate } from './Common/WeatherForecastMessage/FlexMessageTemplate';
 
 // アクセストークンとチャンネルシークレットをenvから読み込む
 const clientConfig: ClientConfig = {
@@ -22,6 +22,7 @@ exports.handler = async (event: any, context: any) => {
 
   try {
     await actionButtonOrErrorMessage(response);
+    await actionFlexMessage(response);
   } catch (err) {
     console.log(err);
   }
@@ -38,14 +39,27 @@ const actionButtonOrErrorMessage = async (event: WebhookEvent) => {
     const { text } = event.message;
 
     if (text === '今日の洋服は？') {
-      const buttonMessageTemplate = await ButtonMessageTemplate();
-      console.log('buttonMessageTemplate: ' + JSON.stringify(buttonMessageTemplate));
-      await client.replyMessage(replyToken, buttonMessageTemplate);
+      const buttonMessage = await buttonMessageTemplate();
+      await client.replyMessage(replyToken, buttonMessage);
     } else {
-      const errorMessageTemplate = await ErrorMessageTemplate();
-      console.log('errorMessageTemplate: ' + JSON.stringify(errorMessageTemplate));
-      await client.replyMessage(replyToken, errorMessageTemplate);
+      const errorMessage = await errorMessageTemplate();
+      await client.replyMessage(replyToken, errorMessage);
     }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const actionFlexMessage = async (event: WebhookEvent) => {
+  try {
+    if (event.type !== 'message' || event.message.type !== 'location') {
+      return;
+    }
+
+    const { replyToken } = event;
+    const message = await flexMessageTemplate(event);
+
+    await client.replyMessage(replyToken, message);
   } catch (err) {
     console.log(err);
   }
